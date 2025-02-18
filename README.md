@@ -238,5 +238,6 @@ Here is what changed:
 - Environment variable `MODULE_FILTER` is now `SUBNET_FILTER`
 - CLI flag `--recreateStationIdOnError` is now `--recreateCheckerIdOnError`
 - Activity event property `.module` is now `.subnet`
-- Default state and cache paths have changed. However, when Checker Node detecs that, it will perform an automatic migration
+- Default state and cache paths have changed. However, when Checker Node detecs
+  that, it will perform an automatic migration
 - Repository `filecoin-station/core` is now `checkernetwork/node`
