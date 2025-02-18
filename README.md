@@ -58,7 +58,7 @@ The following configuration options are shared by all Checker commands:
 
   - Linux: `${XDG_STATE_HOME:-~/.local/state}/checker-network-node`
   - macOS: `~/Library/Application Support/network.checker.node`
-  - Windows: `%LOCALAPPDATA%/Checker Network`
+  - Windows: `%LOCALAPPDATA%/Checker Network Node`
 
   **IMPORTANT:** The`$STATE_ROOT` directory must be local to the computer
   running the Checker. This directory must not be shared with other computers
