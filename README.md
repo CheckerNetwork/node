@@ -225,3 +225,18 @@ Publish a new version:
 ```bash
 $ npm run release
 ```
+
+## Migration guide from Station Core
+
+Station Core was recently rebranded to Checker Node. Read more here:
+https://blog.checker.network/posts/why-web3-needs-the-checker-network
+
+Here is what changed:
+
+- Node module `@filecoin-station/core` is now `@checkernetwork/node`
+- CLI `core` is now `checker`
+- Environment variable `MODULE_FILTER` is now `SUBNET_FILTER`
+- CLI flag `--recreateStationIdOnError` is now `--recreateCheckerIdOnError`
+- Activity event property `.module` is now `.subnet`
+- Default state and cache paths have changed. However, when Checker Node detecs that, it will perform an automatic migration
+- Repository `filecoin-station/core` is now `checkernetwork/node`
