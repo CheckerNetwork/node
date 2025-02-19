@@ -52,7 +52,7 @@ The following configuration options are shared by all Checker commands:
   cached data) in this directory. Defaults to
   - Linux: `${XDG_CACHE_HOME:-~/.cache}/checker-network-node`
   - macOS: `~/Library/Caches/network.checker.node`
-  - Windows: `%TEMP%/Checker Network`
+  - Windows: `%TEMP%/Checker Network Node`
 - `$STATE_ROOT` _(string; optional)_: Checker stores logs and subnet state in
   this directory. Defaults to
 
