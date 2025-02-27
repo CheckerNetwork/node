@@ -23,10 +23,10 @@ updates:
     reviewers:
       - "bajtos"
       - "juliangruber"
-    - package-ecosystem: "docker"
+  - package-ecosystem: "docker"
     directories:
       - "/"
     schedule:
       interval: "daily"
-      time: "15:00"
+      time: "09:00"
       timezone: "Europe/Berlin"
