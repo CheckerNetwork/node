@@ -1,4 +1,4 @@
-FROM node:22.13.1-slim
+FROM node:22.14.0-slim
 LABEL org.opencontainers.image.source=https://github.com/CheckerNetwork/node
 USER node
 WORKDIR /usr/src/app
