@@ -30,6 +30,7 @@ jobs:
           - nanoid
           - w3name
           - '@web3-storage/car-block-validator'
+          - node
     steps:
       - name: Dependabot metadata
         id: metadata
