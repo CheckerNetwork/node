@@ -40,8 +40,28 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/CheckerNetwork/node
-            ghcr.io/CheckerNetwork/node:${{ steps.package-version.outputs.current-version }}
+            ghcr.io/checkernetwork/node
+            ghcr.io/checkernetwork/node:${{ steps.package-version.outputs.current-version }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=registry,ref=ghcr.io/CheckerNetwork/node
+          cache-from: type=registry,ref=ghcr.io/checkernetwork/node
           cache-to: type=inline
+      
+      - if: failure()
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            {
+              "channel": "alerts",
+              "text": "Building `${{ github.event.repository.name }}` docker image failed",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":warning: *<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Building `${{ github.event.repository.name }}` docker image failed>*"
+                  }
+                }
+              ]
+            }   
