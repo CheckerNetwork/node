@@ -1,6 +1,6 @@
 {
   "name": "@checkernetwork/node",
-  "version": "22.1.0",
+  "version": "22.1.1",
   "description": "Checker Network Node",
   "license": "(Apache-2.0 AND MIT)",
   "repository": {
@@ -69,5 +69,5 @@
     "lib",
     "scripts"
   ],
-  "sentryEnvironment": "development"
+  "sentryEnvironment": "production"
 }
