@@ -19,14 +19,13 @@ describe('Checker', () => {
     assert.strictEqual(ps.exitCode, null)
     stopChecker()
   })
-  // No experimental subnets available at this point
-  // it('runs experimental subnets', () => {
-  //   it('runs Bacalhau', async () => {
-  //     const ps = startChecker(['--experimental'])
-  //     await streamMatch(ps.stdout, 'Bacalhau subnet started.')
-  //     stopChecker()
-  //   })
-  // })
+  it('runs experimental subnets', () => {
+    it('runs Arweave', async () => {
+      const ps = startChecker(['--experimental'])
+      await streamMatch(ps.stdout, 'Arweave subnet started.')
+      stopChecker()
+    })
+  })
   it('outputs events', async () => {
     const ps = startChecker()
     await Promise.all([
