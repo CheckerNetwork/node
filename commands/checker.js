@@ -95,10 +95,6 @@ export const checker = async ({ json, recreateCheckerIdOnError, experimental }) 
     }
   })
 
-  if (experimental) {
-    console.error('No experimental subnets available at this point')
-  }
-
   const contracts = []
 
   const fetchRequest = new ethers.FetchRequest(
@@ -129,7 +125,8 @@ export const checker = async ({ json, recreateCheckerIdOnError, experimental }) 
           source: activity.source || 'Zinnia'
         })
       },
-      onMetrics: m => metrics.submit('zinnia', m)
+      onMetrics: m => metrics.submit('zinnia', m),
+      experimental
     }),
     runPingLoop({ CHECKER_ID }),
     runMachinesLoop({ CHECKER_ID }),
