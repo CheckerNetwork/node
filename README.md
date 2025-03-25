@@ -130,7 +130,9 @@ For the JSON output, the following event types exist:
 Set the flag `--experimental` to run subnets not yet considered safe for
 production use. _Run this at your own risk!_
 
-No subnets currently in experimental mode.
+Checker Modules currently in experimental mode:
+
+- [Arweave](https://github.com/CheckerNetwork/arweave-checker/)
 
 ### `$ checker --help`
 
