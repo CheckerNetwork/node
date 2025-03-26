@@ -133,6 +133,7 @@ production use. _Run this at your own risk!_
 Checker Modules currently in experimental mode:
 
 - [Arweave](https://github.com/CheckerNetwork/arweave-checker/)
+- [Walrus](https://github.com/CheckerNetwork/walrus-checker/)
 
 ### `$ checker --help`
 
