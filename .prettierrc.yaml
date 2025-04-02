@@ -1,2 +1,5 @@
-printWidth: 80
+semi: false
+singleQuote: true
+printWidth: 100
+trailingComma: all
 proseWrap: always

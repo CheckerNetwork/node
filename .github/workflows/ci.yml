@@ -21,7 +21,7 @@ jobs:
       - run: npm ci --omit=dev
       - run: npm ci
       - run: npm run test:types
-      - run: npm run test:lint
+      - run: npm run lint
         if: matrix.os != 'windows-latest'
       - run: npm run test:unit
 
