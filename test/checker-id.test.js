@@ -5,22 +5,30 @@ import { decrypt, encrypt, getCheckerId } from '../lib/checker-id.js'
 import { getUniqueTempDir } from './util.js'
 
 const log = {
-  error () {},
-  warn () {}
+  error() {},
+  warn() {},
 }
 
 describe('checker-id', () => {
   describe('getCheckerId', () => {
     it('creates a new key and stores it in the given path', async () => {
       const secretsDir = getUniqueTempDir()
-      const generated = await getCheckerId({ secretsDir, passphrase: 'secret', log })
+      const generated = await getCheckerId({
+        secretsDir,
+        passphrase: 'secret',
+        log,
+      })
       assert.match(generated.publicKey, /^[0-9a-z]+$/)
       assert.match(generated.privateKey, /^[0-9a-z]+$/)
 
       await fs.stat(path.join(secretsDir, 'checker_id'))
       // the check passes if the statement above does not throw
 
-      const loaded = await getCheckerId({ secretsDir, passphrase: 'secret', log })
+      const loaded = await getCheckerId({
+        secretsDir,
+        passphrase: 'secret',
+        log,
+      })
       assert.deepStrictEqual(loaded, generated)
     })
 
@@ -28,7 +36,11 @@ describe('checker-id', () => {
       // spark-api is enforcing this constraint and rejecting measurements containing checkerId
       // in a different format
       const secretsDir = getUniqueTempDir()
-      const { publicKey } = await await getCheckerId({ secretsDir, passphrase: 'secret', log })
+      const { publicKey } = await await getCheckerId({
+        secretsDir,
+        passphrase: 'secret',
+        log,
+      })
       assert.strictEqual(publicKey.length, 88, 'publicKey.length')
       assert.match(publicKey, /^[0-9A-Za-z]*$/)
     })
@@ -51,14 +63,19 @@ describe('checker-id', () => {
       await getCheckerId({ secretsDir, passphrase: 'secret', log })
       await assert.rejects(
         getCheckerId({ secretsDir, passphrase: 'wrong pass', log }),
-        /Cannot decrypt Checker ID file. Did you configure the correct PASSPHRASE/
+        /Cannot decrypt Checker ID file. Did you configure the correct PASSPHRASE/,
       )
     })
 
     it('recreates unreadable checker ids on demand', async () => {
       const secretsDir = getUniqueTempDir()
       await getCheckerId({ secretsDir, passphrase: 'secret', log })
-      await getCheckerId({ secretsDir, passphrase: 'new pass', recreateOnError: true, log })
+      await getCheckerId({
+        secretsDir,
+        passphrase: 'new pass',
+        recreateOnError: true,
+        log,
+      })
     })
 
     it('encrypts plaintext checker_id file when PASSPHRASE is provided', async () => {
@@ -66,11 +83,18 @@ describe('checker-id', () => {
       const generated = await getCheckerId({ secretsDir, passphrase: '', log })
       const plaintext = await fs.readFile(path.join(secretsDir, 'checker_id'))
 
-      const loaded = await getCheckerId({ secretsDir, passphrase: 'super-secret', log })
+      const loaded = await getCheckerId({
+        secretsDir,
+        passphrase: 'super-secret',
+        log,
+      })
       assert.deepStrictEqual(loaded, generated)
 
       const ciphertext = await fs.readFile(path.join(secretsDir, 'checker_id'))
-      assert.notStrictEqual(plaintext.toString('hex'), ciphertext.toString('hex'))
+      assert.notStrictEqual(
+        plaintext.toString('hex'),
+        ciphertext.toString('hex'),
+      )
     })
   })
 

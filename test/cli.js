@@ -1,17 +1,24 @@
 import assert from 'node:assert'
 import { execa } from 'execa'
-import { checker, FIL_WALLET_ADDRESS, PASSPHRASE, getUniqueTempDir } from './util.js'
+import {
+  checker,
+  FIL_WALLET_ADDRESS,
+  PASSPHRASE,
+  getUniqueTempDir,
+} from './util.js'
 import { once } from 'node:events'
 
 describe('CLI', () => {
   describe('FIL_WALLET_ADDRESS', () => {
     it('fails without address', async () => {
-      await assert.rejects(execa(checker, {
-        env: {
-          STATE_ROOT: getUniqueTempDir(),
-          PASSPHRASE
-        }
-      }))
+      await assert.rejects(
+        execa(checker, {
+          env: {
+            STATE_ROOT: getUniqueTempDir(),
+            PASSPHRASE,
+          },
+        }),
+      )
     })
     it('fails with sanctioned address', async () => {
       try {
@@ -19,8 +26,8 @@ describe('CLI', () => {
           env: {
             STATE_ROOT: getUniqueTempDir(),
             PASSPHRASE,
-            FIL_WALLET_ADDRESS: '0x1da5821544e25c636c1417ba96ade4cf6d2f9b5a'
-          }
+            FIL_WALLET_ADDRESS: '0x1da5821544e25c636c1417ba96ade4cf6d2f9b5a',
+          },
         })
       } catch (err) {
         assert.strictEqual(err.exitCode, 2)
@@ -34,8 +41,8 @@ describe('CLI', () => {
           env: {
             STATE_ROOT: getUniqueTempDir(),
             PASSPHRASE,
-            FIL_WALLET_ADDRESS: '0x1da5821544e25c636c1417ba96ade4cf6d2f9b5'
-          }
+            FIL_WALLET_ADDRESS: '0x1da5821544e25c636c1417ba96ade4cf6d2f9b5',
+          },
         })
       } catch (err) {
         assert.strictEqual(err.exitCode, 2)
@@ -47,8 +54,8 @@ describe('CLI', () => {
       const ps = execa(checker, {
         env: {
           STATE_ROOT: getUniqueTempDir(),
-          FIL_WALLET_ADDRESS
-        }
+          FIL_WALLET_ADDRESS,
+        },
       })
       await once(ps.stdout, 'data')
       ps.kill()
@@ -58,8 +65,8 @@ describe('CLI', () => {
         env: {
           STATE_ROOT: getUniqueTempDir(),
           FIL_WALLET_ADDRESS,
-          PASSPHRASE
-        }
+          PASSPHRASE,
+        },
       })
       await once(ps.stdout, 'data')
       ps.kill()
@@ -70,8 +77,8 @@ describe('CLI', () => {
         env: {
           STATE_ROOT,
           FIL_WALLET_ADDRESS,
-          PASSPHRASE
-        }
+          PASSPHRASE,
+        },
       })
       await once(ps.stdout, 'data')
       ps.kill()
@@ -80,8 +87,8 @@ describe('CLI', () => {
           env: {
             STATE_ROOT,
             FIL_WALLET_ADDRESS,
-            PASSPHRASE: `${PASSPHRASE}x`
-          }
+            PASSPHRASE: `${PASSPHRASE}x`,
+          },
         })
       } catch (err) {
         assert.strictEqual(err.exitCode, 1)
@@ -99,8 +106,8 @@ describe('CLI', () => {
           env: {
             STATE_ROOT,
             FIL_WALLET_ADDRESS,
-            PASSPHRASE
-          }
+            PASSPHRASE,
+          },
         })
         await once(ps.stdout, 'data')
         ps.kill()
@@ -110,8 +117,8 @@ describe('CLI', () => {
           env: {
             STATE_ROOT,
             FIL_WALLET_ADDRESS,
-            PASSPHRASE: `${PASSPHRASE}x`
-          }
+            PASSPHRASE: `${PASSPHRASE}x`,
+          },
         })
         await once(ps.stdout, 'data')
         ps.kill()

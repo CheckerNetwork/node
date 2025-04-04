@@ -1,6 +1,11 @@
 import assert from 'node:assert'
 import { execa } from 'execa'
-import { checker, FIL_WALLET_ADDRESS, PASSPHRASE, getUniqueTempDir } from './util.js'
+import {
+  checker,
+  FIL_WALLET_ADDRESS,
+  PASSPHRASE,
+  getUniqueTempDir,
+} from './util.js'
 import streamMatch from 'stream-match'
 import getStream from 'get-stream'
 import { once } from 'node:events'
@@ -12,8 +17,8 @@ describe('Checker', () => {
       once(ps, 'exit'),
       Promise.all([
         streamMatch(ps.stdout, 'totalJobsCompleted'),
-        streamMatch(ps.stdout, 'Spark started')
-      ])
+        streamMatch(ps.stdout, 'Spark started'),
+      ]),
     ])
     // Assert that the process did not exit prematurely
     assert.strictEqual(ps.exitCode, null)
@@ -31,7 +36,7 @@ describe('Checker', () => {
     const ps = startChecker()
     await Promise.all([
       streamMatch(ps.stdout, 'totalJobsCompleted'),
-      streamMatch(ps.stdout, 'Spark started')
+      streamMatch(ps.stdout, 'Spark started'),
     ])
     stopChecker()
   })
@@ -40,29 +45,27 @@ describe('Checker', () => {
 
     await Promise.all([
       streamMatch(ps.stdout, 'jobs-completed'),
-      streamMatch(ps.stdout, /activity:info.*(Spark started)/)
+      streamMatch(ps.stdout, /activity:info.*(Spark started)/),
     ])
 
     stopChecker()
   })
 
   let ps, stdout, stderr
-  function startChecker (cliArgs = []) {
+  function startChecker(cliArgs = []) {
     assert(!ps, 'Checker is already running')
 
     const CACHE_ROOT = getUniqueTempDir()
     const STATE_ROOT = getUniqueTempDir()
-    ps = execa(
-      checker,
-      cliArgs,
-      { env: { CACHE_ROOT, STATE_ROOT, FIL_WALLET_ADDRESS, PASSPHRASE } }
-    )
+    ps = execa(checker, cliArgs, {
+      env: { CACHE_ROOT, STATE_ROOT, FIL_WALLET_ADDRESS, PASSPHRASE },
+    })
     stdout = getStream(ps.stdout)
     stderr = getStream(ps.stderr)
     return ps
   }
 
-  function stopChecker () {
+  function stopChecker() {
     ps.kill()
     ps = undefined
   }

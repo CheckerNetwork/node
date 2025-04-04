@@ -15,7 +15,7 @@ Sentry.init({
   release: pkg.version,
   environment: pkg.sentryEnvironment,
   tracesSampleRate: 0.1,
-  ignoreErrors: [/EACCES/, /EPERM/, /ENOSPC/, /EPIPE/]
+  ignoreErrors: [/EACCES/, /EPERM/, /ENOSPC/, /EPIPE/],
 })
 
 await maybeMigrateRuntimeState()
@@ -25,21 +25,23 @@ yargs(hideBin(process.argv))
   .command(
     '$0',
     'Start Checker',
-    yargs => yargs
-      .option('json', {
-        alias: 'j',
-        type: 'boolean',
-        description: 'Output JSON'
-      })
-      .option('experimental', {
-        type: 'boolean',
-        description: 'Also run experimental subnets'
-      })
-      .option('recreateCheckerIdOnError', {
-        type: 'boolean',
-        description: 'Recreate Checker ID if it is corrupted'
-      }),
-    ({ json, experimental, recreateCheckerIdOnError }) => checker({ json, experimental, recreateCheckerIdOnError })
+    (yargs) =>
+      yargs
+        .option('json', {
+          alias: 'j',
+          type: 'boolean',
+          description: 'Output JSON',
+        })
+        .option('experimental', {
+          type: 'boolean',
+          description: 'Also run experimental subnets',
+        })
+        .option('recreateCheckerIdOnError', {
+          type: 'boolean',
+          description: 'Recreate Checker ID if it is corrupted',
+        }),
+    ({ json, experimental, recreateCheckerIdOnError }) =>
+      checker({ json, experimental, recreateCheckerIdOnError }),
   )
   .version(`${pkg.name}: ${pkg.version}`)
   .alias('v', 'version')
