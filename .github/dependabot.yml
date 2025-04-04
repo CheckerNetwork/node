@@ -1,32 +1,32 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "daily"
-      time: "09:00"
-      timezone: "Europe/Berlin"
+      interval: 'daily'
+      time: '09:00'
+      timezone: 'Europe/Berlin'
     commit-message:
-      prefix: "deps"
-      prefix-development: "deps(dev)"
+      prefix: 'deps'
+      prefix-development: 'deps(dev)'
     reviewers:
-      - "bajtos"
-      - "juliangruber"
-  - package-ecosystem: "github-actions"
-    directory: "/"
+      - 'bajtos'
+      - 'juliangruber'
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "daily"
-      time: "09:00"
-      timezone: "Europe/Berlin"
+      interval: 'daily'
+      time: '09:00'
+      timezone: 'Europe/Berlin'
     commit-message:
-      prefix: "ci"
+      prefix: 'ci'
     reviewers:
-      - "bajtos"
-      - "juliangruber"
-  - package-ecosystem: "docker"
+      - 'bajtos'
+      - 'juliangruber'
+  - package-ecosystem: 'docker'
     directories:
-      - "/"
+      - '/'
     schedule:
-      interval: "daily"
-      time: "09:00"
-      timezone: "Europe/Berlin"
+      interval: 'daily'
+      time: '09:00'
+      timezone: 'Europe/Berlin'

@@ -13,14 +13,9 @@ import { ethers, formatEther } from 'ethers'
 import { runUpdateRewardsLoop } from '../lib/rewards.js'
 import { runUpdateContractsLoop } from '../lib/contracts.js'
 
-const {
-  FIL_WALLET_ADDRESS,
-  PASSPHRASE
-} = process.env
+const { FIL_WALLET_ADDRESS, PASSPHRASE } = process.env
 
-const runtimeNames = [
-  'zinnia'
-]
+const runtimeNames = ['zinnia']
 
 /**
  * @param {string} msg
@@ -31,10 +26,16 @@ const panic = (msg, exitCode = 1) => {
   process.exit(exitCode)
 }
 
-export const checker = async ({ json, recreateCheckerIdOnError, experimental }) => {
+export const checker = async ({
+  json,
+  recreateCheckerIdOnError,
+  experimental,
+}) => {
   if (!FIL_WALLET_ADDRESS) panic('FIL_WALLET_ADDRESS required')
   if (FIL_WALLET_ADDRESS.startsWith('f1')) {
-    panic('Invalid FIL_WALLET_ADDRESS: f1 addresses are currently not supported. Please use an f4 or 0x address.')
+    panic(
+      'Invalid FIL_WALLET_ADDRESS: f1 addresses are currently not supported. Please use an f4 or 0x address.',
+    )
   }
   if (
     !FIL_WALLET_ADDRESS.startsWith('f410') &&
@@ -42,20 +43,30 @@ export const checker = async ({ json, recreateCheckerIdOnError, experimental }) 
   ) {
     panic('FIL_WALLET_ADDRESS must start with f410 or 0x')
   }
-  if (FIL_WALLET_ADDRESS.startsWith('0x') && !isEthAddress(FIL_WALLET_ADDRESS)) {
+  if (
+    FIL_WALLET_ADDRESS.startsWith('0x') &&
+    !isEthAddress(FIL_WALLET_ADDRESS)
+  ) {
     panic('Invalid FIL_WALLET_ADDRESS ethereum address', 2)
   }
 
-  const keypair = await getCheckerId({ secretsDir: paths.secrets, passphrase: PASSPHRASE, recreateOnError: recreateCheckerIdOnError })
+  const keypair = await getCheckerId({
+    secretsDir: paths.secrets,
+    passphrase: PASSPHRASE,
+    recreateOnError: recreateCheckerIdOnError,
+  })
   const CHECKER_ID = keypair.publicKey
 
   const fetchRes = await pRetry(
-    () => fetch(`https://station-wallet-screening.fly.dev/${FIL_WALLET_ADDRESS}`),
+    () =>
+      fetch(`https://station-wallet-screening.fly.dev/${FIL_WALLET_ADDRESS}`),
     {
       retries: 1000,
       onFailedAttempt: () =>
-        console.error('Failed to validate FIL_WALLET_ADDRESS address. Retrying...')
-    }
+        console.error(
+          'Failed to validate FIL_WALLET_ADDRESS address. Retrying...',
+        ),
+    },
   )
   if (fetchRes.status === 403) panic('Invalid FIL_WALLET_ADDRESS address', 2)
   if (!fetchRes.ok) panic('Failed to validate FIL_WALLET_ADDRESS address')
@@ -67,42 +78,55 @@ export const checker = async ({ json, recreateCheckerIdOnError, experimental }) 
     await fs.mkdir(join(paths.runtimeState, runtimeName), { recursive: true })
   }
 
-  activities.onActivity(activity => {
+  activities.onActivity((activity) => {
     if (json) {
-      console.log(JSON.stringify({
-        type: `activity:${activity.type}`,
-        subnet: activity.source,
-        message: activity.message
-      }))
+      console.log(
+        JSON.stringify({
+          type: `activity:${activity.type}`,
+          subnet: activity.source,
+          message: activity.message,
+        }),
+      )
     } else {
       process.stdout.write(formatActivityObject(activity))
     }
   })
 
-  metrics.onUpdate(metrics => {
+  metrics.onUpdate((metrics) => {
     if (json) {
-      console.log(JSON.stringify({
-        type: 'jobs-completed',
-        total: metrics.totalJobsCompleted,
-        rewardsScheduledForAddress: formatEther(metrics.rewardsScheduledForAddress)
-      }))
+      console.log(
+        JSON.stringify({
+          type: 'jobs-completed',
+          total: metrics.totalJobsCompleted,
+          rewardsScheduledForAddress: formatEther(
+            metrics.rewardsScheduledForAddress,
+          ),
+        }),
+      )
     } else {
-      console.log(JSON.stringify({
-        totalJobsCompleted: metrics.totalJobsCompleted,
-        rewardsScheduledForAddress:
-          formatEther(metrics.rewardsScheduledForAddress)
-      }, null, 2))
+      console.log(
+        JSON.stringify(
+          {
+            totalJobsCompleted: metrics.totalJobsCompleted,
+            rewardsScheduledForAddress: formatEther(
+              metrics.rewardsScheduledForAddress,
+            ),
+          },
+          null,
+          2,
+        ),
+      )
     }
   })
 
   const contracts = []
 
   const fetchRequest = new ethers.FetchRequest(
-    'https://api.node.glif.io/rpc/v1'
+    'https://api.node.glif.io/rpc/v1',
   )
   fetchRequest.setHeader(
     'Authorization',
-    'Bearer RXQ2SKH/BVuwN7wisZh3b5uXStGPj1JQIrIWD+rxF0Y='
+    'Bearer RXQ2SKH/BVuwN7wisZh3b5uXStGPj1JQIrIWD+rxF0Y=',
   )
   const provider = new ethers.JsonRpcProvider(fetchRequest)
 
@@ -116,29 +140,29 @@ export const checker = async ({ json, recreateCheckerIdOnError, experimental }) 
       CACHE_ROOT: join(paths.runtimeCache, 'zinnia'),
       subnetVersionsDir: paths.subnetVersionsDir,
       subnetSourcesDir: paths.subnetSourcesDir,
-      onActivity: activity => {
+      onActivity: (activity) => {
         activities.submit({
           ...activity,
           // Zinnia will try to overwrite `source` if a subnet created the
           // activity. Using the spread syntax won't work because a
           // `source: null` would overwrite the default value.
-          source: activity.source || 'Zinnia'
+          source: activity.source || 'Zinnia',
         })
       },
-      onMetrics: m => metrics.submit('zinnia', m),
-      experimental
+      onMetrics: (m) => metrics.submit('zinnia', m),
+      experimental,
     }),
     runPingLoop({ CHECKER_ID }),
     runMachinesLoop({ CHECKER_ID }),
     runUpdateContractsLoop({
       provider,
       contracts,
-      onActivity: (activity) => activities.submit(activity)
+      onActivity: (activity) => activities.submit(activity),
     }),
     runUpdateRewardsLoop({
       contracts,
       ethAddress,
-      onMetrics: m => metrics.submit('zinnia', m)
-    })
+      onMetrics: (m) => metrics.submit('zinnia', m),
+    }),
   ])
 }

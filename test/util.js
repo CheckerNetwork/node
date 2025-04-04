@@ -7,7 +7,7 @@ export const FIL_WALLET_ADDRESS = '0x000000000000000000000000000000000000dEaD'
 export const PASSPHRASE = 'secret'
 
 export const checker = fileURLToPath(
-  new URL('../bin/checker.js', import.meta.url)
+  new URL('../bin/checker.js', import.meta.url),
 )
 
 export const getUniqueTempDir = () => {
