@@ -18,15 +18,6 @@
     "declarationMap": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "index.js",
-    "bin",
-    "commands",
-    "lib",
-    "scripts",
-    "tests"
-  ],
-  "exclude": [
-    "dist/**/*"
-  ]
+  "include": ["index.js", "bin", "commands", "lib", "scripts", "tests"],
+  "exclude": ["dist/**/*"]
 }
