@@ -1,2 +1,4 @@
 # Let's keep LICENSE.md in the same formatting as we use in other PL repositories
 LICENSE.md
+/lib/abi.json
+/tsconfig.json
