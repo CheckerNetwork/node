@@ -43,6 +43,7 @@
     "neostandard": "^0.12.1",
     "np": "^10.0.0",
     "prettier": "^3.5.3",
+    "prettier-plugin-multiline-arrays": "^4.0.3",
     "stream-match": "^1.2.1",
     "typescript": "^5.0.4"
   },
