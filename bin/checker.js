@@ -15,7 +15,12 @@ Sentry.init({
   release: pkg.version,
   environment: pkg.sentryEnvironment,
   tracesSampleRate: 0.1,
-  ignoreErrors: [/EACCES/, /EPERM/, /ENOSPC/, /EPIPE/],
+  ignoreErrors: [
+    /EACCES/,
+    /EPERM/,
+    /ENOSPC/,
+    /EPIPE/,
+  ],
 })
 
 await maybeMigrateRuntimeState()
