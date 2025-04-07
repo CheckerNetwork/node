@@ -6,8 +6,10 @@
 /** @type {Config} */
 export default {
   plugins: [
-    'prettier-plugin-multiline-arrays',
+    // Order of plugins is important!
+    // See https://github.com/electrovir/prettier-plugin-multiline-arrays?tab=readme-ov-file#compatibility
     'prettier-plugin-packagejson',
+    'prettier-plugin-multiline-arrays',
   ],
   multilineArraysWrapThreshold: 1,
   semi: false,
