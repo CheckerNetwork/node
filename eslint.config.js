@@ -4,8 +4,5 @@ export default neostandard({
   noStyle: true, // Disable style-related rules, we use Prettier
   ts: true,
   env: ['mocha'],
-  ignores: [
-    '.cache/**',
-    'test/.cache/**',
-  ],
+  ignores: ['.cache/**', 'test/.cache/**'],
 })
