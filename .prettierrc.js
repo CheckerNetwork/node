@@ -5,7 +5,10 @@
 
 /** @type {Config} */
 export default {
-  plugins: ['prettier-plugin-multiline-arrays'],
+  plugins: [
+    'prettier-plugin-multiline-arrays',
+    'prettier-plugin-packagejson',
+  ],
   multilineArraysWrapThreshold: 1,
   semi: false,
   singleQuote: true,
