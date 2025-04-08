@@ -67,7 +67,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         with:
-          platforms: "arm64"
+          platforms: 'arm64'
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -92,12 +92,12 @@ jobs:
 
       - name: Start Checker Node container with PASSPHRASE
         run: |
-         docker run \
-           --name checker \
-           --detach \
-           --env FIL_WALLET_ADDRESS=0x000000000000000000000000000000000000dEaD \
-           --env PASSPHRASE=secret \
-           $IMAGEID
+          docker run \
+            --name checker \
+            --detach \
+            --env FIL_WALLET_ADDRESS=0x000000000000000000000000000000000000dEaD \
+            --env PASSPHRASE=secret \
+            $IMAGEID
         env:
           IMAGEID: ${{ steps.docker_build.outputs.imageid }}
 
@@ -111,11 +111,11 @@ jobs:
 
       - name: Start Checker Node container without PASSPHRASE
         run: |
-         docker run \
-           --name checker_unsecure \
-           --detach \
-           --env FIL_WALLET_ADDRESS=0x000000000000000000000000000000000000dEaD \
-           $IMAGEID
+          docker run \
+            --name checker_unsecure \
+            --detach \
+            --env FIL_WALLET_ADDRESS=0x000000000000000000000000000000000000dEaD \
+            $IMAGEID
         env:
           IMAGEID: ${{ steps.docker_build.outputs.imageid }}
 

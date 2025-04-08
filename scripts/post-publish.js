@@ -8,5 +8,9 @@ const pkg = JSON.parse(await fs.readFile(paths.packageJSON, 'utf8'))
 pkg.sentryEnvironment = 'development'
 await fs.writeFile(paths.packageJSON, JSON.stringify(pkg, null, 2) + '\n')
 await execa('git', ['add', 'package.json'])
-await execa('git', ['commit', '-m', 'chore: set sentry environment to development'])
+await execa('git', [
+  'commit',
+  '-m',
+  'chore: set sentry environment to development',
+])
 await execa('git', ['push'])

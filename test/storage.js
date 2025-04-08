@@ -10,10 +10,9 @@ describe('Storage', async () => {
   it('creates files', async () => {
     const CACHE_ROOT = join(tmpdir(), randomUUID())
     const STATE_ROOT = join(tmpdir(), randomUUID())
-    const ps = execa(
-      checker,
-      { env: { CACHE_ROOT, STATE_ROOT, FIL_WALLET_ADDRESS, PASSPHRASE } }
-    )
+    const ps = execa(checker, {
+      env: { CACHE_ROOT, STATE_ROOT, FIL_WALLET_ADDRESS, PASSPHRASE },
+    })
     while (true) {
       await once(ps.stdout, 'data')
       try {
