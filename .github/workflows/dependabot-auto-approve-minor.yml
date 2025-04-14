@@ -24,7 +24,7 @@ jobs:
           - execa
           - '@ipld/car'
           - '@filecoin-station/spark-impact-evaluator'
-          - standard
+          - neostandard
           - p-retry
           - cross-spawn
           - nanoid
