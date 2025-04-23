@@ -33,6 +33,7 @@
     "test:unit": "cross-env STATE_ROOT=test/.state CACHE_ROOT=test/.cache node --no-warnings=ExperimentalWarning node_modules/mocha/bin/_mocha",
     "version": "node ./scripts/version.js"
   },
+  "prettier": "@checkernetwork/prettier-config",
   "dependencies": {
     "@filecoin-station/spark-impact-evaluator": "^1.1.0",
     "@glif/filecoin-address": "^3.0.0",
@@ -51,6 +52,7 @@
     "yargs": "^17.7.1"
   },
   "devDependencies": {
+    "@checkernetwork/prettier-config": "^1.0.0",
     "@types/yargs": "^17.0.24",
     "cross-env": "^7.0.3",
     "eslint": "^9.23.0",
