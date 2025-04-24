@@ -24,6 +24,16 @@ describe('Checker', () => {
     assert.strictEqual(ps.exitCode, null)
     stopChecker()
   })
+  it('runs Spark Checker', async () => {
+    const ps = startChecker()
+    await Promise.race([
+      once(ps, 'exit'),
+      streamMatch(ps.stdout, 'SPARK started reporting retrievals'),
+    ])
+    // Assert that the process did not exit prematurely
+    assert.strictEqual(ps.exitCode, null)
+    stopChecker()
+  })
   it('runs experimental subnets', () => {
     it('runs Arweave & Walrus', async () => {
       const ps = startChecker(['--experimental'])
