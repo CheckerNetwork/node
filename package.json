@@ -1,6 +1,6 @@
 {
   "name": "@checkernetwork/node",
-  "version": "22.2.0",
+  "version": "22.3.0",
   "description": "Checker Network Node",
   "repository": {
     "type": "git",
@@ -70,7 +70,7 @@
   "engines": {
     "node": ">=18"
   },
-  "sentryEnvironment": "development",
+  "sentryEnvironment": "production",
   "standard": {
     "env": [
       "mocha"
