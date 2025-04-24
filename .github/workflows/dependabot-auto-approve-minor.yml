@@ -11,6 +11,7 @@ jobs:
     strategy:
       matrix:
         dependencyStartsWith:
+          - '@checkernetwork/prettier-config'
           - '@sentry/'
           - undici
           - '@types/'
