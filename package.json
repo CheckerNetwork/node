@@ -36,7 +36,7 @@
   "prettier": "@checkernetwork/prettier-config",
   "dependencies": {
     "@filecoin-station/spark-impact-evaluator": "^1.1.0",
-    "@glif/filecoin-address": "^3.0.0",
+    "@glif/filecoin-address": "^4.0.0",
     "@influxdata/influxdb-client": "^1.33.2",
     "@ipld/car": "^5.2.6",
     "@sentry/node": "^9.0.0",
