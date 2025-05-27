@@ -29,8 +29,7 @@
     "start": "cross-env FIL_WALLET_ADDRESS=0x000000000000000000000000000000000000dEaD STATE_ROOT=.state CACHE_ROOT=.cache node ./bin/checker.js",
     "test": "npm run lint && npm run test:types && npm run test:unit",
     "test:types": "tsc -p .",
-    "test:unit": "cross-env STATE_ROOT=test/.state CACHE_ROOT=test/.cache node --no-warnings=ExperimentalWarning node_modules/mocha/bin/_mocha",
-    "version": "node ./scripts/version.js"
+    "test:unit": "cross-env STATE_ROOT=test/.state CACHE_ROOT=test/.cache node --no-warnings=ExperimentalWarning node_modules/mocha/bin/_mocha"
   },
   "prettier": "@checkernetwork/prettier-config",
   "dependencies": {
