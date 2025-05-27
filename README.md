@@ -218,7 +218,6 @@ $ journalctl -u checker.service
 
 ## Disclaimer
 
-The CLI uses [Sentry](https://sentry.io) for error tracking.
 [InfluxDB](https://www.influxdata.com/) is used for stats.
 
 ## Development
