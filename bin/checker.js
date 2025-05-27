@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { checker } from '../commands/checker.js'
-import * as Sentry from '@sentry/node'
 import yargs from 'yargs/yargs'
 import { hideBin } from 'yargs/helpers'
 import fs from 'node:fs/promises'
@@ -9,14 +8,6 @@ import * as paths from '../lib/paths.js'
 import { maybeMigrateRuntimeState } from '../lib/migrate.js'
 
 const pkg = JSON.parse(await fs.readFile(paths.packageJSON, 'utf8'))
-
-Sentry.init({
-  dsn: 'https://775e0a9786704436a8c135d874657766@o1408530.ingest.us.sentry.io/4504792315199488',
-  release: pkg.version,
-  environment: pkg.sentryEnvironment,
-  tracesSampleRate: 0.1,
-  ignoreErrors: [/EACCES/, /EPERM/, /ENOSPC/, /EPIPE/],
-})
 
 await maybeMigrateRuntimeState()
 

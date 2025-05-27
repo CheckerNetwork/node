@@ -25,7 +25,6 @@
     "postinstall": "node ./scripts/post-install.js",
     "lint": "eslint && prettier --check .",
     "lint:fix": "eslint --fix && prettier --write .",
-    "postpublish": "node ./scripts/post-publish.js",
     "release": "np",
     "start": "cross-env FIL_WALLET_ADDRESS=0x000000000000000000000000000000000000dEaD STATE_ROOT=.state CACHE_ROOT=.cache node ./bin/checker.js",
     "test": "npm run lint && npm run test:types && npm run test:unit",
@@ -39,7 +38,6 @@
     "@glif/filecoin-address": "^4.0.0",
     "@influxdata/influxdb-client": "^1.33.2",
     "@ipld/car": "^5.2.6",
-    "@sentry/node": "^9.0.0",
     "@web3-storage/car-block-validator": "^1.2.0",
     "ethers": "^6.8.1",
     "execa": "^9.0.2",
@@ -70,7 +68,6 @@
   "engines": {
     "node": ">=18"
   },
-  "sentryEnvironment": "development",
   "standard": {
     "env": [
       "mocha"
