@@ -1,6 +1,6 @@
 {
   "name": "@checkernetwork/node",
-  "version": "22.3.0",
+  "version": "22.3.1",
   "description": "Checker Network Node",
   "repository": {
     "type": "git",
