@@ -34,14 +34,6 @@ describe('Checker', () => {
     assert.strictEqual(ps.exitCode, null)
     stopChecker()
   })
-  it('runs experimental subnets', () => {
-    it('runs Arweave & Walrus', async () => {
-      const ps = startChecker(['--experimental'])
-      await streamMatch(ps.stdout, 'Arweave subnet started.')
-      await streamMatch(ps.stdout, 'Walrus subnet started.')
-      stopChecker()
-    })
-  })
   it('outputs events', async () => {
     const ps = startChecker()
     await Promise.all([
